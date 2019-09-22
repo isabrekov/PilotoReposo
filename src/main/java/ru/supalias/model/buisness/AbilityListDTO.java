@@ -10,5 +10,5 @@ import java.util.List;
 @Data
 public class AbilityListDTO {
     @JsonProperty("abilities")
-    List<AbilityListDTO> abilityDTOList;
+    List<AbilityDTO> abilityDTOList;
 }
