@@ -11,4 +11,5 @@ public class AbilityDTO {
 //    private URL url;
     @JsonProperty("ability")
     private NameAndUrlDTO nameAndUrlDTO;
+    private AbilityEffectListDTO abilityEffectListDTO;
 }

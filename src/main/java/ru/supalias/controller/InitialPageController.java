@@ -3,7 +3,7 @@ package ru.supalias.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.supalias.model.buisness.PokemonsListDTO;
+import ru.supalias.model.buisness.PokemonListDTO;
 import ru.supalias.service.impl.PokeApiParserServiceImpl;
 
 import java.io.IOException;
@@ -16,7 +16,8 @@ public class InitialPageController {
 
     @GetMapping("/")
     public String initialPageLoad() throws IOException{
-        PokemonsListDTO pokemonsListDTO = pokeApiParserService.parsePokeApi();
+        PokemonListDTO pokemonListDTO = pokeApiParserService.parsePokeApi();
+        pokeApiParserService.convertPoke(pokemonListDTO);
         return "lol";
     }
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
 @Data
-public class PokemonsListDTO {
+public class PokemonListDTO {
 //    private int count;
 //    private URL next;
 //    private Object previous;

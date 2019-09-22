@@ -1,10 +1,10 @@
 package ru.supalias.service;
 
-import ru.supalias.model.buisness.PokemonsListDTO;
+import ru.supalias.model.buisness.PokemonListDTO;
 
 import java.io.IOException;
 
 public interface PokeApiParserSecvice {
-    public PokemonsListDTO parsePokeApi() throws IOException;
+    public PokemonListDTO parsePokeApi() throws IOException;
 
 }
