@@ -3,15 +3,19 @@ package ru.supalias.service.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.supalias.configuration.AbilityDTOMapper;
 import ru.supalias.configuration.PokemonDTOMapper;
 import ru.supalias.model.buisness.AbilityEffectListDTO;
 import ru.supalias.model.buisness.AbilityListDTO;
 import ru.supalias.model.buisness.PokemonListDTO;
+import ru.supalias.model.database.AbilityForDB;
 import ru.supalias.model.database.PokemonForDB;
 import ru.supalias.service.PokeApiParserSecvice;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
 
 @Service("PokeApiParserService")
 public class PokeApiParserServiceImpl implements PokeApiParserSecvice {
@@ -35,11 +39,18 @@ public class PokeApiParserServiceImpl implements PokeApiParserSecvice {
     }
 
     public void convertPoke(PokemonListDTO pokemonListDTO) throws IOException {
-        pokemonListDTO = parsePokeApi();
+        List<PokemonForDB> pokemonForDBList = new LinkedList<>();
         PokemonForDB pokemonForDB = new PokemonForDB();
-        pokemonForDB = PokemonDTOMapper.INSTANCE.pokemonDTOToPokemonForDB(pokemonListDTO.getPokemonDTOList().get(0));
-        URL url = new URL("as");
-
-
+        List<AbilityForDB> abilityForDBList = new LinkedList<>();
+        AbilityForDB abilityForDB = new AbilityForDB();
+        for(int i = 0; i < pokemonListDTO.getPokemonDTOList().size(); i++) {
+            pokemonForDB = PokemonDTOMapper.INSTANCE.pokemonDTOToPokemonForDB(pokemonListDTO.getPokemonDTOList().get(i));
+            for(int j = 0; j < pokemonListDTO.getPokemonDTOList().get(i).getAbilityListDTO().getAbilityDTOList().size(); j++) {
+                abilityForDB = AbilityDTOMapper.INSTANCE.abilityDTOToAbilityForDB(pokemonListDTO.getPokemonDTOList().get(i).getAbilityListDTO().getAbilityDTOList().get(j));
+                abilityForDBList.add(abilityForDB);
+            }
+            pokemonForDB.setAbilityForDBList(abilityForDBList);
+            pokemonForDBList.add(pokemonForDB);
+        }
     }
 }
